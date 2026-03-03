@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int sum_digits(int num)
+{
+	int sum = 0;
+	num = abs(num);
+
+	while(num > 0)
+		{
+			sum += num % 10;
+			num /= 10;
+		}
+
+	return sum;
+}
+
+void print_array(int arr[], int n, const char* message) 
+{
+		printf("%s", message);
+		for (int i = 0; i < n; i++) 
+		{
+				printf("%d ", arr[i]);
+		}
+		printf("\n");
+}
+
+void sort_by_digit_sum(int arr[], int n) 
+{
+		for (int i = 0; i < n - 1; i++) 
+		{
+				for (int j = 0; j < n - i - 1; j++) 
+				{
+						if (sum_digits(arr[j]) > sum_digits(arr[j + 1])) 
+						{
+								int temp = arr[j];
+								arr[j] = arr[j + 1];
+								arr[j + 1] = temp;
+						}
+				}
+		}
+}
+
+int main (int args, char *argv[])
+{
+	if (args != 2)
+	{
+	printf("Использование: %s <размер массива>\n",argv[0]);
+	printf("Пример: %s 10\n", argv[0]);
+	return 1;	
+	}
+
+	int n = atoi (argv[1]);
+
+	if(n <= 0)
+	{
+		printf("Ошибка: размер массива должен быть положительным числом\n");
+		return 1;
+	}
+
+	srand(time(NULL));
+
+	int arr[n];
+
+	for (int i = 0; i < n; i++) 
+		{
+				arr[i] = rand() % 100 + 1;  
+		}
+
+	print_array(arr, n, "Исходный массив: ");
+
+	printf("Суммы цифр:      ");
+	for (int i = 0; i < n; i++) 
+	{
+			printf("%d ", sum_digits(arr[i]));
+	}
+	printf("\n");
+
+  sort_by_digit_sum(arr, n);
+
+print_array(arr, n, "Отсортированный массив (по сумме цифр): ");
+
+	return 0;
+
+}
