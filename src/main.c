@@ -16,6 +16,16 @@ int sum_digits(int num)
 	return sum;
 }
 
+void print_array(int arr[], int n, const char* message) 
+{
+		printf("%s", message);
+		for (int i = 0; i < n; i++) 
+		{
+				printf("%d ", arr[i]);
+		}
+		printf("\n");
+}
+
 int main (int args, char *argv[])
 {
 	if (atgs != 2)
@@ -41,6 +51,8 @@ int main (int args, char *argv[])
 		{
 				arr[i] = rand() % 100 + 1;  
 		}
+
+	print_array(arr, n, "Исходный массив: ");
 
 	printf("Суммы цифр:      ");
 	for (int i = 0; i < n; i++) 
